@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirigiendo a WhatsApp...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <script>
+        // Capturar User-Agent y ctwa_clid
+        const userAgent = navigator.userAgent;
+        const urlParams = new URLSearchParams(window.location.search);
+        const ctwaClid = urlParams.get('ctwa_clid'); // Parámetro de Meta Ads
+
+        // Configurar tu número de WhatsApp y mensaje predeterminado
+        const telefono = "+5491140432778"; // Ej: +549123456789
+        const mensaje = "Hola, deseo recibir más información sobre el curso"; // Mensaje predeterminado
+
+        // Construir URL de WhatsApp con parámetros
+        const whatsappUrl = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}&user_agent=${encodeURIComponent(userAgent)}&ctwa_clid=${ctwaClid}`;
+
+        // Redirigir al usuario
+        window.location.href = whatsappUrl;
+    </script>
+</body>
+</html>
