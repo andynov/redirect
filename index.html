@@ -1,28 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Redirigiendo a WhatsApp...</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ctwaClid = urlParams.get('ctwa_clid') || "N/A";
-            const telefonoWA = "+5491140432778"; 
-            const mensajeWA = "¡Hola! Quiero más información";
+function doGet(e) {
+  try {
+    const sheetId = "1H69j5tNfmoToaq8JSglddDwsqck-jUN1dXDN_llJmzw"; // ID de tu Google Sheet
+    const sheetName = "Hoja 1"; // Verifica que el nombre sea correcto
+    const sheet = SpreadsheetApp.openById(sheetId).getSheetByName(sheetName);
+    
+    if (!sheet) {
+      throw new Error("No se encontró la hoja en el archivo de Google Sheets.");
+    }
 
-            // 1. Enviar datos al Sheet
-            const webAppUrl = "https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec";
-            fetch(`${webAppUrl}?ctwa_clid=${encodeURIComponent(ctwaClid)}&user_agent=${encodeURIComponent(navigator.userAgent)}`)
-                .then(response => response.text())
-                .then(text => console.log("Respuesta del servidor:", text))
-                .catch(error => console.error("Error en la solicitud:", error));
+    // Obtener parámetros de la URL
+    const ctwaClid = e.parameter.ctwa_clid || "N/A";
+    const userAgent = e.parameter.user_agent || "N/A";
 
-            // 2. Redirigir con formato estándar
-            window.location.href = `https://wa.me/${telefonoWA}?text=${encodeURIComponent(mensajeWA)}`;
-        });
-    </script>
-</body>
-</html>
+    // Validar parámetros
+    if (ctwaClid === "N/A" || userAgent === "N/A") {
+      throw new Error("Faltan parámetros obligatorios.");
+    }
 
+    // Escribir en Google Sheets
+    sheet.appendRow([new Date(), "+5491140432778", ctwaClid, userAgent, "No"]);
+
+    return ContentService.createTextOutput("OK").setMimeType(ContentService.MimeType.TEXT);
+
+  } catch (error) {
+    return ContentService.createTextOutput("Error detectado: " + error.message)
+      .setMimeType(ContentService.MimeType.TEXT);
+  }
+}
