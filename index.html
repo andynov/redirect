@@ -15,7 +15,7 @@
 
             // 1. Enviar datos al Sheet (usando fetch para mejor control)
             if (ctwaClid) {
-                const webAppUrl = "TU_URL_WEB_APP"; // Ej: https://script.google.com/macros/s/.../exec
+                const webAppUrl = "https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec"; // Ej: https://script.google.com/macros/s/.../exec
                 fetch(`${webAppUrl}?ctwa_clid=${ctwaClid}&user_agent=${encodeURIComponent(navigator.userAgent)}`)
                     .then(response => console.log("Datos enviados al Sheet"))
                     .catch(error => console.error("Error al enviar datos:", error));
