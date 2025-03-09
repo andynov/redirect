@@ -1,36 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Redirigiendo a WhatsApp...</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+    <title>Test</title>
     <script>
-  // Pixel invisible para registrar clics
-  const pixel = document.createElement('img');
-  const ctwaClid = new URLSearchParams(window.location.search).get('ctwa_clid');
-  pixel.src = `https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec?ctwa_clid=${ctwaClid}&user_agent=${navigator.userAgent}`;
-  pixel.style.display = 'none';
-  document.body.appendChild(pixel);
-</script>
-<body>
-    <script>
-        // Capturar parámetros de la URL
+        // Capturar parámetros y user agent
         const urlParams = new URLSearchParams(window.location.search);
         const ctwaClid = urlParams.get('ctwa_clid');
         const userAgent = navigator.userAgent;
 
-        // Generar ID único de sesión
-        const sessionId = crypto.randomUUID();
+        // URL del Web App (reemplázala con la tuya)
+        const webAppUrl = "TU_URL_WEB_APP";
 
-        // Enviar datos al nuevo Sheet (vía Web App)
-        fetch(`TU_URL_WEB_APP_NUEVO?telefono=${encodeURIComponent("+5491140432778")}&ctwa_clid=${ctwaClid}&user_agent=${encodeURIComponent(userAgent)}&session_id=${sessionId}`, { 
-            method: 'GET',
-            mode: 'no-cors'
-        });
+        // 1. Intentar registrar datos en el Sheet
+        fetch(`${webAppUrl}?ctwa_clid=${ctwaClid}&user_agent=${userAgent}`)
+            .then(response => console.log("Datos enviados al Sheet:", response))
+            .catch(error => console.error("Error al enviar datos:", error));
 
-        // Redirigir a WhatsApp con mensaje limpio
-        const mensaje = encodeURIComponent("¡Hola! Quiero recibir más información 🚀");
-        window.location.href = `https://wa.me/+5491140432778?text=${mensaje}`;
+        // 2. Redirigir a WhatsApp después de 3 segundos (para ver logs)
+        setTimeout(() => {
+            window.location.href = "https://wa.me/+5491140432778?text=Test";
+        }, 3000);
     </script>
+</head>
+<body>
+    <h1>Cargando...</h1>
 </body>
 </html>
