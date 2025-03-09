@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test</title>
-    <script>
-        // Capturar parámetros y user agent
-        const urlParams = new URLSearchParams(window.location.search);
-        const ctwaClid = urlParams.get('ctwa_clid');
-        const userAgent = navigator.userAgent;
-
-        // URL del Web App (reemplázala con la tuya)
-        const webAppUrl = "TU_URL_WEB_APP";
-
-        // 1. Intentar registrar datos en el Sheet
-        fetch(`${webAppUrl}?ctwa_clid=${ctwaClid}&user_agent=${userAgent}`)
-            .then(response => console.log("Datos enviados al Sheet:", response))
-            .catch(error => console.error("Error al enviar datos:", error));
-
-        // 2. Redirigir a WhatsApp después de 3 segundos (para ver logs)
-        setTimeout(() => {
-            window.location.href = "https://wa.me/+5491140432778?text=Test";
-        }, 3000);
-    </script>
+    <title>Redirigiendo a WhatsApp...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1>Cargando...</h1>
+    <script>
+        // Esperar a que el DOM esté listo
+        document.addEventListener("DOMContentLoaded", function() {
+            // Capturar parámetros
+            const urlParams = new URLSearchParams(window.location.search);
+            const ctwaClid = urlParams.get('ctwa_clid'); // Declaración única
+            
+            // 1. Enviar datos al Sheet (pixel invisible)
+            if (ctwaClid) {
+                const pixel = document.createElement('img');
+                pixel.src = `TU_URL_WEB_APP?ctwa_clid=${ctwaClid}&user_agent=${navigator.userAgent}`;
+                pixel.style.display = 'none';
+                document.body.appendChild(pixel); // ✅ Body ya está cargado
+            }
+
+            // 2. Redirigir a WhatsApp
+            window.location.href = "https://wa.me/+5491140432778?text=¡Hola! Quiero más información";
+        });
+    </script>
 </body>
 </html>
