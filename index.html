@@ -7,25 +7,25 @@
 <body>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Capturar los parámetros de la URL
             const urlParams = new URLSearchParams(window.location.search);
             const ctwaClid = urlParams.get('ctwa_clid');
-            const telefonoWA = "+5491140432778"; // Tu número de WhatsApp
-            const mensajeWA = "¡Hola! Quiero más información.";
+            const telefonoWA = "+5491140432778"; // Tu número
+            const mensajeWA = "¡Hola! Quiero más información";
 
-            // 1. Enviar datos al Google Sheet si hay ctwa_clid
+            // 1. Enviar datos al Sheet
             if (ctwaClid) {
-                const webAppUrl = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxWbYQjWVMwBKztqVU7nmlAYCfxn97hr1DOqg33P_qxaqQ_Fm2QIPVLxgpcYx1pNWch/exec/exec"; // Reemplaza con tu Web App ID
+                const webAppUrl = "https://script.google.com/macros/s/AKfycbxWbYQjWVMwBKztqVU7nmlAYCfxn97hr1DOqg33P_qxaqQ_Fm2QIPVLxgpcYx1pNWch/exec"; // Asegúrate de poner tu URL de la Web App
                 fetch(`${webAppUrl}?ctwa_clid=${ctwaClid}&user_agent=${encodeURIComponent(navigator.userAgent)}`)
-                    .then(response => response.text())
-                    .then(data => console.log("Respuesta del servidor:", data))
-                    .catch(error => console.error("Error al enviar datos:", error));
+                    .then(response => console.log("Datos enviados:", response.status))
+                    .catch(error => console.error("Error:", error));
             }
 
             // 2. Redirigir a WhatsApp
-            setTimeout(() => {
-                window.location.href = `https://wa.me/${telefonoWA}?text=${encodeURIComponent(mensajeWA)}`;
-            }, 500); // Espera 500ms para evitar problemas con la redirección
+            window.location.href = `https://wa.me/${telefonoWA}?text=${encodeURIComponent(mensajeWA)}`;
         });
     </script>
 </body>
+</html>
+
 </html>
