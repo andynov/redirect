@@ -4,6 +4,14 @@
     <title>Redirigiendo a WhatsApp...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+    <script>
+  // Pixel invisible para registrar clics
+  const pixel = document.createElement('img');
+  const ctwaClid = new URLSearchParams(window.location.search).get('ctwa_clid');
+  pixel.src = `https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec?ctwa_clid=${ctwaClid}&user_agent=${navigator.userAgent}`;
+  pixel.style.display = 'none';
+  document.body.appendChild(pixel);
+</script>
 <body>
     <script>
         // Capturar parámetros de la URL
