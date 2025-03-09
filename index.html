@@ -3,25 +3,27 @@
 <head>
     <title>Redirigiendo a WhatsApp...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Eliminar referencia a manifest.json (no es necesario) -->
 </head>
 <body>
     <script>
-        // Esperar a que el DOM esté listo
         document.addEventListener("DOMContentLoaded", function() {
-            // Capturar parámetros
             const urlParams = new URLSearchParams(window.location.search);
-            const ctwaClid = urlParams.get('ctwa_clid'); // Declaración única
-            
-            // 1. Enviar datos al Sheet (pixel invisible)
+            const ctwaClid = urlParams.get('ctwa_clid');
+            const telefonoWA = "+5491140432778"; // Reemplaza con tu número
+            const mensajeWA = "¡Hola! Quiero más información";
+
+            // 1. Enviar datos al Sheet (usando fetch para mejor control)
             if (ctwaClid) {
-                const pixel = document.createElement('img');
-                pixel.src = `https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec?ctwa_clid=${ctwaClid}&user_agent=${navigator.userAgent}`;
-                pixel.style.display = 'none';
-                document.body.appendChild(pixel); // ✅ Body ya está cargado
+                const webAppUrl = "TU_URL_WEB_APP"; // Ej: https://script.google.com/macros/s/.../exec
+                fetch(`${webAppUrl}?ctwa_clid=${ctwaClid}&user_agent=${encodeURIComponent(navigator.userAgent)}`)
+                    .then(response => console.log("Datos enviados al Sheet"))
+                    .catch(error => console.error("Error al enviar datos:", error));
             }
 
-            // 2. Redirigir a WhatsApp
-            window.location.href = "https://wa.me/+5491140432778?text=¡Hola! Quiero más información";
+            // 2. Redirigir a WhatsApp con URL estándar
+            const urlWhatsApp = `https://wa.me/${telefonoWA}?text=${encodeURIComponent(mensajeWA)}`;
+            window.location.href = urlWhatsApp;
         });
     </script>
 </body>
