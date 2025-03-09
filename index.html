@@ -6,20 +6,23 @@
 </head>
 <body>
     <script>
-        // Capturar User-Agent y ctwa_clid
-        const userAgent = navigator.userAgent;
+        // Capturar parámetros de la URL
         const urlParams = new URLSearchParams(window.location.search);
-        const ctwaClid = urlParams.get('ctwa_clid'); // Parámetro de Meta Ads
+        const ctwaClid = urlParams.get('ctwa_clid');
+        const userAgent = navigator.userAgent;
 
-        // Configurar tu número de WhatsApp (cambia +123456789 por tu número real)
-        const telefono = "+5491140432778"; 
-        const mensaje = "¡Hola! Deseo recibir más información sobre el curso"; // Mensaje predeterminado
+        // Generar ID único de sesión
+        const sessionId = crypto.randomUUID();
 
-        // Construir URL de WhatsApp con parámetros
-        const whatsappUrl = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}&user_agent=${encodeURIComponent(userAgent)}&ctwa_clid=${ctwaClid}`;
+        // Enviar datos al nuevo Sheet (vía Web App)
+        fetch(`TU_URL_WEB_APP_NUEVO?telefono=${encodeURIComponent("+5491140432778")}&ctwa_clid=${ctwaClid}&user_agent=${encodeURIComponent(userAgent)}&session_id=${sessionId}`, { 
+            method: 'GET',
+            mode: 'no-cors'
+        });
 
-        // Redirigir al usuario
-        window.location.href = whatsappUrl;
+        // Redirigir a WhatsApp con mensaje limpio
+        const mensaje = encodeURIComponent("¡Hola! Quiero recibir más información 🚀");
+        window.location.href = `https://wa.me/+5491140432778?text=${mensaje}`;
     </script>
 </body>
 </html>
