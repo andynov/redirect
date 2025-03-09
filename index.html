@@ -15,7 +15,7 @@
             // 1. Enviar datos al Sheet (pixel invisible)
             if (ctwaClid) {
                 const pixel = document.createElement('img');
-                pixel.src = `TU_URL_WEB_APP?ctwa_clid=${ctwaClid}&user_agent=${navigator.userAgent}`;
+                pixel.src = `https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec?ctwa_clid=${ctwaClid}&user_agent=${navigator.userAgent}`;
                 pixel.style.display = 'none';
                 document.body.appendChild(pixel); // ✅ Body ya está cargado
             }
