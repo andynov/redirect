@@ -3,28 +3,27 @@
 <head>
     <title>Redirigiendo a WhatsApp...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Eliminar referencia a manifest.json (no es necesario) -->
 </head>
 <body>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const ctwaClid = urlParams.get('ctwa_clid');
-            const telefonoWA = "+5491140432778"; // Reemplaza con tu número
+            const telefonoWA = "+5491140432778"; // Tu número
             const mensajeWA = "¡Hola! Quiero más información";
 
-            // 1. Enviar datos al Sheet (usando fetch para mejor control)
+            // 1. Enviar datos al Sheet
             if (ctwaClid) {
-                const webAppUrl = "https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec"; // Ej: https://script.google.com/macros/s/.../exec
+                const webAppUrl = "https://script.google.com/macros/s/AKfycbwTY7O0g_fY_xySCweKI65WexJvpGhfhYZ7uI8qNOBs9D1AWhutNv83sMj1PpaP1dja/exec";
                 fetch(`${webAppUrl}?ctwa_clid=${ctwaClid}&user_agent=${encodeURIComponent(navigator.userAgent)}`)
-                    .then(response => console.log("Datos enviados al Sheet"))
-                    .catch(error => console.error("Error al enviar datos:", error));
+                    .then(response => console.log("Datos enviados:", response.status))
+                    .catch(error => console.error("Error:", error));
             }
 
-            // 2. Redirigir a WhatsApp con URL estándar
-            const urlWhatsApp = `https://wa.me/${telefonoWA}?text=${encodeURIComponent(mensajeWA)}`;
-            window.location.href = urlWhatsApp;
+            // 2. Redirigir con formato estándar
+            window.location.href = `https://wa.me/${telefonoWA}?text=${encodeURIComponent(mensajeWA)}`;
         });
     </script>
 </body>
+</html>
 </html>
